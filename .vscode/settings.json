@@ -1,0 +1,9 @@
+{
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [
+    {"mode":"auto"}
+  ],
+  "jest.runMode": "on-demand",
+  "jest.jestCommandLine": "npm run test --",
+  "jest.rootPath": ""
+}
