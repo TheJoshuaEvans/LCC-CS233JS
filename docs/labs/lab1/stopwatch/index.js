@@ -133,4 +133,4 @@ function resetTimer() {
 }
 
 // When the page has finished loading, call the function init
-document.addEventListener('DOMContentLoaded', init);
+window.onload = init;
