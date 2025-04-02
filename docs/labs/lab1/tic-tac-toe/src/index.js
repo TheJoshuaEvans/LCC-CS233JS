@@ -1,21 +1,11 @@
+// Joshua Evans - 2025-04-01
 /*  Overview
     This application simulates a tic tac toe game.
 
-    There are 5 global variables that are used to keep track of the "state"
-    of the application.
-    -  xIsNext - is a boolean that keeps track of whether x is the next player or not.
-    -  squares - a 9 element array of x's and o's currently on the board.
-       NOTE:  This does NOT STORE UI elements.  It represents data.
-    -  winner - the player who has won the game.  The value will be either null, or "x" or "o".
-    -  winningLine - an array of 3 elements that stores the indices of the winning squares on the board.
-       It will be an empty array when the winner is null.
-    -  lines - an array of all of the possible winning lines in the game.  The first element,
-       for example, is [0, 1, 2] -- the indices for winning in the first row of the board.
+    Global variables are used to handle the game state and the function handleClick is associated with the
+    click event handler for each square on the board.
 
-    The function handleClick is associated with the click event handler for each square on the board.
-
-    There are lots of  "helper" functions.  Comments in the code describe each of these functions.
-    I've written more functions that I might have done to make each function as simple as possible.
+    There are lots of  "helper" functions.  Comments in the code describe each of these functions
 */
 
 /** If it is X's turn */
