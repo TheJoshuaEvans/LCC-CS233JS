@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Lab 1 Pt1: Stopwatch",
+      "url": "http://localhost:5500/docs/labs/lab1/stopwatch/index.html"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Lab 1 Pt2: Concentration",
+      "url": "http://localhost:5500/docs/labs/lab1/concentration/index.html"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Lab 1 Pt3: Tic Tac Toe",
+      "url": "http://localhost:5500/docs/labs/lab1/tic-tac-toe/index.html",
+    }
+  ]
+}
