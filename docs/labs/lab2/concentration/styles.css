@@ -1,0 +1,16 @@
+/* Joshua Evans - 2025-04-01 */
+#board {
+  max-width: 600px;
+}
+
+.card {
+  border-width: 2px;
+  border-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 150px;
+}
+
+.pointer {
+  cursor: pointer;
+}

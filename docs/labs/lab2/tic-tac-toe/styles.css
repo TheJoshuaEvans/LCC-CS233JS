@@ -1,0 +1,22 @@
+/* Joshua Evans - 2025-04-01 */
+.square {
+  height: 33vw;
+  max-height: 200px;
+  max-width: 200px;
+
+  font-size: 150px;
+  line-height: 200px
+}
+
+@media screen and (max-width: 600px) {
+  .square {
+    width: 30vw;
+    font-size: 28vw;
+    line-height: 33vw;
+  }
+}
+
+.red {
+  color:red;
+  background-color: lightgray;
+}
