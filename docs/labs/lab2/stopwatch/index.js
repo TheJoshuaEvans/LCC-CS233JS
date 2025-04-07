@@ -1,3 +1,4 @@
+// Joshua Evans - 2025-04-07
 import pad from '../../../src/utils/pad.js';
 
 const MS_IN_ONE_SEC = 1000;
