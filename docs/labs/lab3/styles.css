@@ -1,0 +1,60 @@
+/* Joshua Evans - 2025-04-19 */
+.clickable {
+  cursor: pointer;
+}
+
+.die {
+  width: 10vw;
+  height: 10vw;
+  background-size: cover;  
+}
+
+/* Background images for each die */
+.die.die-1 {
+  background-image: url(images/die1.png);
+}
+
+.die.die-2 {
+  background-image: url(images/die2.png);
+}
+
+.die.die-3 {
+  background-image: url(images/die3.png);
+}
+
+.die.die-4 {
+  background-image: url(images/die4.png);
+}
+
+.die.die-5 {
+  background-image: url(images/die5.png);
+}
+
+.die.die-6 {
+  background-image: url(images/die6.png);
+}
+
+/* Animated background images for each die */
+.die.die-anim-1 {
+  background-image: url(images/die1.png) !important;
+}
+
+.die.die-anim-2 {
+  background-image: url(images/die2.png) !important;
+}
+
+.die.die-anim-3 {
+  background-image: url(images/die3.png) !important;
+}
+
+.die.die-anim-4 {
+  background-image: url(images/die4.png) !important;
+}
+
+.die.die-anim-5 {
+  background-image: url(images/die5.png) !important;
+}
+
+.die.die-anim-6 {
+  background-image: url(images/die6.png) !important;
+}

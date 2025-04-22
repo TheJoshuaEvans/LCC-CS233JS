@@ -80,7 +80,7 @@
 			"",
 			"};",
 			"",
-			"module.exports = ${TM_FILENAME_BASE/[-_](\\w)/${1:/capitalize}/g};",
+			"export default ${TM_FILENAME_BASE/[-_](\\w)/${1:/capitalize}/g};",
 			""
 		]
 	}
