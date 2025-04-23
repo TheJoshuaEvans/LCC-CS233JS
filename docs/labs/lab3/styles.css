@@ -58,3 +58,31 @@
 .die.die-anim-6 {
   background-image: url(images/die6.png) !important;
 }
+
+/* -------- Footer Content -------- */
+footer
+{
+  position: fixed;
+  left: 0.3em;
+  bottom: 0.3em;
+  width: 100%;
+}
+
+/* 
+  If the footer will overlap with the main content, unstick
+  it from the viewport and let it stay at the bottom of the page
+*/
+@media (max-width: 92em)
+{
+  footer {
+    margin-top: 0.5em;
+    position: initial;
+  }
+}
+
+.right-justify
+{
+  float: right;
+  margin-left: auto;
+  margin-right: 0.7em;
+}
