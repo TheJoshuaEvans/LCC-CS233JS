@@ -1,6 +1,8 @@
 //? Joshua Evans - 2025-04-22
 /**
  * A quick and dirty local CLI program to dynamically test the full Ten Thousand game logic
+ *
+ * Uses dynamic prompts. Run with `node cli.js` while in this directory
  */
 import Game from './src/ten-thousand/classes/game.js';
 import readline from 'readline';
