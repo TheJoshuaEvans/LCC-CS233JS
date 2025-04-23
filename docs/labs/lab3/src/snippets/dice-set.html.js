@@ -33,6 +33,7 @@ const diceSetHtml = (params) => {
   <button type="button" id="end-turn-button" class="mt-1 btn btn-success">End Turn</button>
 </div>`;
 
+  // By utilizing the custom event on the player object, we can automatically update the turn score
   player.onUpdateTurnScore = (turnScore) => {
     const turnScoreElement = document.getElementById(turnScoreElementId);
     if (turnScoreElement) {
