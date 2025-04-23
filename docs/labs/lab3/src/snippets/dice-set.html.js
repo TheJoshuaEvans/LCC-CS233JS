@@ -1,3 +1,4 @@
+//? Joshua Evans - 2025-04-22
 /** @typedef {import('../ten-thousand/classes/player.js').default} Player */
 
 /**

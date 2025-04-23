@@ -1,3 +1,4 @@
+//? Joshua Evans - 2025-04-22
 /** @typedef {import('./player.js').SelectDiceResult} SelectDiceResult */
 import Player from './player.js';
 

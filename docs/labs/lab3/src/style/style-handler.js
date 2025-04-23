@@ -1,4 +1,4 @@
-//* Joshua Evans - 2025-04-19
+//? Joshua Evans - 2025-04-22
 import handleClassMutation from './utils/handle-class-mutation.js';
 
 /**

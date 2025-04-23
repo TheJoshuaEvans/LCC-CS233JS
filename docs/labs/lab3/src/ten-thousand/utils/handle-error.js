@@ -1,3 +1,4 @@
+//? Joshua Evans - 2025-04-22
 /**
  * Function take a method and an error callback, and runs the callback if the method throws an error. If
  * an error is thrown, `null` will be returned, otherwise the result of the method will be returned

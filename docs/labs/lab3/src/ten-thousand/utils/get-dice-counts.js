@@ -1,4 +1,4 @@
-//* Joshua Evans - 2025-04-19
+//? Joshua Evans - 2025-04-22
 /**
  * Class that represents the number of each die value in a set of up to six dice. Works just like a
  * regular dictionary, but with some helpers for counting pairs and stuff

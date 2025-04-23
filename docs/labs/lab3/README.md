@@ -36,4 +36,4 @@ An example turn might go something like this:  A player rolls the six dice and t
 > The [Wikipedia Article](https://en.wikipedia.org/wiki/Farkle) on the game is quite interesting!
 
 # Attribution
-By Joshua Evans - 2025-04-19
+By [Joshua Evans](https://thejoshuaevans.com) - 2025-04-22

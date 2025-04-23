@@ -1,3 +1,4 @@
+//? Joshua Evans - 2025-04-22
 /**
  * A quick and dirty local CLI program to dynamically test the full Ten Thousand game logic
  */

@@ -1,4 +1,4 @@
-//* Joshua Evans - 2025-04-21
+//? Joshua Evans - 2025-04-22
 /** @typedef {import('./src/ten-thousand/classes/player.js').default} Player */
 
 // These are "ES6/Javascript Modules", which lets us break code up into files without having to fetch

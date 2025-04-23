@@ -1,4 +1,4 @@
-//* Joshua Evans - 2025-04-19
+//? Joshua Evans - 2025-04-22
 /**
  * @typedef HandleMutationParams
  * @prop {MutationRecord[]} mutationRecords Records of the mutation triggering the callback
