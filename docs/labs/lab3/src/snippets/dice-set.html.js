@@ -27,12 +27,13 @@ const diceSetHtml = (params) => {
       }).join('')
     }
   </div>
-  <button type="button" id="save-selections" class="mt-1 btn btn-primary">Select Dice</button>
+  <button type="button" id="save-selections-button" class="mt-1 btn btn-primary">Select Dice</button>
+  <button type="button" id="reroll-dice-button" class="mt-1 btn btn-secondary">Reroll</button>
+  <button type="button" id="end-turn-button" class="mt-1 btn btn-success">End Turn</button>
 </div>`;
 
   player.onUpdateTurnScore = (turnScore) => {
     const turnScoreElement = document.getElementById(turnScoreElementId);
-    console.log(turnScoreElement);
     if (turnScoreElement) {
       turnScoreElement.innerText = turnScore;
     }

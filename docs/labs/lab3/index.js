@@ -63,15 +63,25 @@ const renderPlayerDice = (player) => {
   const diceWrapper = document.getElementById('dice-wrapper');
   diceWrapper.innerHTML = '';
 
+  // Reset dice indexes
+  selectedDiceIndexes = [];
+  window.selectedDiceIndexes = selectedDiceIndexes; // Keep the debugging reference up to date
+
   // Create the dice set element and insert it into the wrapper
   const playerDiceElement = document.createElement('div');
   playerDiceElement.innerHTML = diceSetHtml({player});
   playerDiceElement.addEventListener('click', handleClickDice);
   diceWrapper.appendChild(playerDiceElement);
 
-  // Add the event handler for the "Select Dice" button
-  const selectDiceButton = document.getElementById('save-selections');
+  // Add the event handlers for all the buttons
+  const selectDiceButton = document.getElementById('save-selections-button');
   selectDiceButton.addEventListener('click', handleSelectDice);
+
+  const rerollDiceButton = document.getElementById('reroll-dice-button');
+  rerollDiceButton.addEventListener('click', handleRerollDice);
+
+  const endTurnButton = document.getElementById('end-turn-button');
+  endTurnButton.addEventListener('click', handleEndTurn);
 
   // Run the style handler to handle visual class changes
   const styleHandler = new StyleHandler();
@@ -86,7 +96,7 @@ const renderPlayerDice = (player) => {
  * The indexes of the dice that are currently selected by the user
  * @type {number[]}
  */
-const selectedDiceIndexes = [];
+let selectedDiceIndexes = [];
 window.selectedDiceIndexes = selectedDiceIndexes;
 
 /**
@@ -97,11 +107,15 @@ window.selectedDiceIndexes = selectedDiceIndexes;
 const handleClickDice = (event) => {
   const target = event.target;
 
+  const dieIndex = target.getAttribute('die-index');
+  if (dieIndex === null) {
+    // If the die index is null, this is not a die element, so short circuit
+    return;
+  }
+
   // Toggle the "selected" class
   target.classList.toggle('selected');
 
-  // Manage the selected dice indexes
-  const dieIndex = target.getAttribute('die-index');
   if (target.classList.contains('selected')) {
     // Add this die index to the selected dice indexes
     selectedDiceIndexes.push(dieIndex);
@@ -118,18 +132,73 @@ const handleClickDice = (event) => {
  * Handle the clicking of the "Select Dice" button, which will score the selected dice
  */
 const handleSelectDice = () => {
-  if (selectedDiceIndexes.length === 0) {
-    // If no dice are selected, display an alert and short circuit
-    alert('Please select at least one die to score, or end your turn');
-    return;
-  }
-
-  console.log('Selecting dice');
-
-  game.selectDice(selectedDiceIndexes, (errorMessage) => {
+  const selectDiceResult = game.selectDice(selectedDiceIndexes, (errorMessage) => {
     // If an error occurs, display it to the user
     alert(errorMessage);
   });
+
+  if (selectDiceResult === null) {
+    // There was an error so do not continue
+    return;
+  }
+
+  const {diceScore} = selectDiceResult;
+  if (diceScore === 0) {
+    alert('You did not score any points, please select some dice that can score or end your turn');
+  }
+};
+
+/**
+ * Handle the clicking of the "Reroll Dice" button, which lets a player continue their turn
+ */
+const handleRerollDice = () => {
+  // Reroll the dice for the current player
+  const rolledDice = game.rollDice((errorMessage) => {
+    // If an error occurs, display it to the user
+    alert(errorMessage);
+  });
+
+  if (rolledDice !== null) {
+    // If the roll was successful, reset the selected dice and re-render the dice
+    renderPlayerDice(game.currentPlayer);
+  }
+};
+
+/**
+ * Handle the clicking of the "End Turn" button, which ends the current player's turn
+ */
+const handleEndTurn = () => {
+  // Reroll the dice for the current player
+  const originalPlayer = game.currentPlayer;
+  const endTurnResults = game.endTurn((errorMessage) => {
+    // If an error occurs, display it to the user
+    alert(errorMessage);
+  });
+
+  if (endTurnResults === null) {
+    // There was an error so do nothing
+    return;
+  }
+
+  const {isVictory, didSaveScore, turnScore} = endTurnResults;
+  if (isVictory === true) {
+    // The current player has won the game! Display a message saying so
+    alert(`Player ${game.currentPlayer.id + 1} has won the game! Reload the page to play again`);
+    return;
+  }
+
+  if (didSaveScore === true) {
+    alert(`Player ${originalPlayer.id + 1} has scored ${turnScore} points!`);
+  } else {
+    alert(`Player ${originalPlayer.id + 1} has ended their turn without scoring!`);
+  }
+
+  // There was no winner, so roll the new player's dice and re-render the dice field
+  game.rollDice((errorMessage) => {
+    // If an error occurs, display it to the user
+    alert(errorMessage);
+  });
+  renderPlayerDice(game.currentPlayer);
 };
 
 /**

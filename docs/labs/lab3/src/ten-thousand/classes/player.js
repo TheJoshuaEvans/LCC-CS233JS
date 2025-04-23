@@ -1,6 +1,33 @@
 import score from '../utils/score.js';
 
 /**
+ * Class that packages useful information from the `selectDice` method
+ */
+class SelectDiceResult {
+  /**
+   * The new turn score after selecting the dice
+   * @type {number}
+   */
+  turnScore;
+
+  /**
+   * The amount that was scored by these particular selected dice
+   */
+  diceScore;
+
+  /**
+   * @param {SelectDiceResult} props
+   */
+  constructor(props) {
+    const {turnScore, diceScore} = props;
+
+    this.turnScore = turnScore;
+    this.diceScore = diceScore;
+  }
+}
+
+
+/**
  * Class handles player data and some basic logic. This class does not enforce game rules
  */
 class Player {
@@ -36,8 +63,10 @@ class Player {
   /**
    * The score the player has earned so far on this turn
    */
-  get turnScore() {
-    return this._turnScore;
+  get turnScore() {return this._turnScore;}
+  set turnScore(value) {
+    this._turnScore = value;
+    this.onUpdateTurnScore(value);
   }
 
   /**
@@ -50,8 +79,10 @@ class Player {
   /**
    * The player's total score
    */
-  get totalScore() {
-    return this._totalScore;
+  get totalScore() {return this._totalScore;}
+  set totalScore(value) {
+    this._totalScore = value;
+    this.onUpdateTotalScore(value);
   }
 
   //* ---- EVENTS ---- */
@@ -65,28 +96,6 @@ class Player {
    * This event method is called whenever the player's turn score is updated
    */
   onUpdateTurnScore = () => {};
-
-  /**
-   * @private
-   * Private proxy handler that runs whenever a property is set on the Game object
-   *
-   * @param {Player} obj The player object the handler is attached to
-   * @param {string} prop The name of the property being set
-   * @param {number} value The new value of the property
-   */
-  _handleProxySet = (obj, prop, value) => {
-    // Run the appropriate event handler when properties are set
-    console.log('handleProxySet', prop);
-    if (prop === '_totalScore') {
-      this.onUpdateTotalScore(value);
-    } else if (prop === '_turnScore') {
-      this.onUpdateTurnScore(value);
-    }
-
-    // Always set the value!
-    obj[prop] = value;
-    return true;
-  };
 
   //* ---- METHODS ---- */
   /**
@@ -114,18 +123,20 @@ class Player {
     const selectedDice = diceIndexes.map((index) => this._dice[index]);
     const diceScore = score(selectedDice);
 
-    this._turnScore += diceScore;
-    return this._turnScore;
+    this.turnScore += diceScore;
+    return new SelectDiceResult({diceScore, turnScore: this.turnScore});
   };
 
   /**
    * Bank the player's current score and reset their dice
    */
-  endTurn = () => {
-    this._totalScore += this._turnScore;
-    this._turnScore = 0;
+  endTurn = (earnedScore) => {
+    if (earnedScore === true) {
+      this.totalScore += this.turnScore;
+    }
+    this.turnScore = 0;
     this._dice = [];
-    return this._totalScore;
+    return this.totalScore;
   };
 
   /**
@@ -133,8 +144,8 @@ class Player {
    */
   reset = () => {
     this._dice = [];
-    this._turnScore = 0;
-    this._totalScore = 0;
+    this.turnScore = 0;
+    this.totalScore = 0;
   };
 
   /**
@@ -143,20 +154,8 @@ class Player {
   constructor(id) {
     this.id = id;
     this.reset();
-
-    // Instead of allowing the constructor to end naturally, return a proxy object that uses `this` as
-    // a base, which lets us watch for property changes and run event handlers when properties are set
-    // Proxies are cool! https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
-
-    // Fun JS Fact: The "constructor" is really a function that returns an object, it just has a special
-    // name and the engine will automatically add an "implicit" `return this;` to the end (in much the
-    // same way it handles semicolons). We can override this behavior by returning a different object,
-    // which is what we're doing here :D
-    const proxyHandler = {
-      set: this._handleProxySet,
-    };
-    return new Proxy(this, proxyHandler);
   }
 }
 
 export default Player;
+export {SelectDiceResult};

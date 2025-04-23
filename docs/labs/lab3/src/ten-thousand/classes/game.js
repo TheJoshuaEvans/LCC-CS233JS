@@ -1,3 +1,4 @@
+/** @typedef {import('./player.js').SelectDiceResult} SelectDiceResult */
 import Player from './player.js';
 
 import handleError from '../utils/handle-error.js';
@@ -28,19 +29,38 @@ const TURN_PHASES = {
  */
 class EndTurnResult {
   /**
-   * @param {number} totalScore The total score of the player
-   * @param {boolean} isVictory Whether the player has won the game
+   * The player's score for this turn
+   * @type {number}
    */
-  constructor(totalScore, isVictory) {
-    /**
-     * The total score of the player
-     */
-    this.totalScore = totalScore;
+  turnScore;
 
-    /**
-     * Whether the player has won the game
-     */
-    this.isVictory = isVictory;
+  /**
+   * The total score of the player
+   * @type {number}
+   */
+  totalScore;
+
+  /**
+   * Whether the player has won the game
+   * @type {boolean}
+   */
+  isVictory;
+
+  /**
+   * If, in the process of ending the turn, the player's turn score was saved to their total score. This
+   * will be false if the player ended their turn without selecting any scoring dice, and true otherwise
+   * @type {boolean}
+   */
+  didSaveScore;
+
+  /**
+   * @param {EndTurnResult} props
+   */
+  constructor(props) {
+    this.totalScore = props.totalScore;
+    this.turnScore = props.turnScore;
+    this.isVictory = props.isVictory;
+    this.didSaveScore = props.didSaveScore;
   }
 }
 
@@ -49,6 +69,11 @@ class EndTurnResult {
  */
 class Game {
   //* ---- STATICS ---- */
+  /**
+   * Class used to represent result of a player ending their turn
+   */
+  static EndTurnResult = EndTurnResult;
+
   /**
    * The default number of dice that can be rolled
    */
@@ -65,13 +90,7 @@ class Game {
    * The current phase of the game
    */
   _currentTurnPhase = TURN_PHASES.ROLL;
-
-  /**
-   * The current phase of the game
-   */
-  get currentTurnPhase() {
-    return this._currentTurnPhase;
-  }
+  get currentTurnPhase() {return this._currentTurnPhase;}
 
   /**
    * @private
@@ -86,13 +105,7 @@ class Game {
    * @type {Player[]}
    */
   _players = [];
-
-  /**
-   * The players currently playing the game
-   */
-  get players() {
-    return this._players;
-  }
+  get players() {return this._players;}
 
   /**
    * @private
@@ -100,27 +113,24 @@ class Game {
    * @type {Player}
    */
   _currentPlayer;
-
-  /**
-   * The current player
-   */
-  get currentPlayer() {
-    return this._currentPlayer;
-  }
+  get currentPlayer() {return this._currentPlayer;}
 
   /**
    * The ID of the current player
    */
-  get currentPlayerId() {
-    return this._currentPlayer.id;
-  }
+  get currentPlayerId() {return this._currentPlayer.id;}
 
   /**
    * The current player's total score
    */
-  get currentPlayerScore() {
-    return this._currentPlayer.totalScore;
-  }
+  get currentPlayerScore() {return this._currentPlayer.totalScore;}
+
+  /**
+   * @private
+   * If the current player has selected any dice yet. If the turn ends while this is false, the player's
+   * turn score will not be saved
+   */
+  _hasSelectedDice = false;
 
   //* ---- METHODS ---- */
   /**
@@ -153,6 +163,7 @@ class Game {
       }
 
       // Roll the dice
+      this._hasSelectedDice = false;
       const playerDice = this._currentPlayer.rollDice(this._diceToRoll);
 
       // Set the current phase to select
@@ -164,13 +175,12 @@ class Game {
   };
 
   /**
-   * Select previously rolled dice from the current player from scoring. Pass in an empty array to
-   * represent making no selections because there are none to make. If selections are made, but they
+   * Select previously rolled dice from the current player from scoring. If selections are made, but they
    * do not score, this method will do nothing and return 0
    *
    * @param {number[]} dice The 0-based indexes of the dice to select
    * @param {function(string)} onError Method to call if an error occurs
-   * @returns {number} The score from the selected dice
+   * @returns {SelectDiceResult} Result data package
    */
   selectDice = (dice, onError) => {
     return handleError(() => {
@@ -180,18 +190,18 @@ class Game {
       }
 
       if (!dice || dice.length === 0) {
-        // If no dice are (or can be) selected, the player has no choice but to end their turn
-        this._updatePhase(TURN_PHASES.END);
-        return 0;
+        throw new Error('Please select at least one die to score, or end your turn');
       }
 
       // Select the dice
-      const score = this._currentPlayer.selectDice(dice);
+      const selectDiceResult = this._currentPlayer.selectDice(dice);
+      const {diceScore} = selectDiceResult;
 
       // If the player did score, move back to the ROLL since they can roll again. Otherwise we will
       // assume they made a mistake and do nothing
-      if (score > 0) {
+      if (diceScore > 0) {
         // Also be sure to update the number dice they are allowed to roll
+        this._hasSelectedDice = true;
         this._diceToRoll = this._currentPlayer.dice.length - dice.length;
         if (this._diceToRoll < 1) {
           // The player has no dice left to roll, so they get to roll all the dice again
@@ -200,8 +210,8 @@ class Game {
         this._updatePhase(TURN_PHASES.ROLL);
       }
 
-      // Return the earned score
-      return score;
+      // Return the turn score so far
+      return selectDiceResult;
     }, onError);
   };
 
@@ -209,12 +219,14 @@ class Game {
    * End the current player's turn, banking their score and moving on to the next player
    *
    * @param {function(string)} onError Method to call if an error occurs
-   * @returns {boolean} Whether the current player has won the game
+   * @returns {EndTurnResult} Results package
    */
   endTurn = (onError) => {
     return handleError(() => {
       // Do not check for turn phase, the turn can be ended at any time
-      const totalScore = this._currentPlayer.endTurn();
+      const didSaveScore = this._hasSelectedDice;
+      const turnScore = didSaveScore ? this._currentPlayer.turnScore : 0;
+      const totalScore = this._currentPlayer.endTurn(didSaveScore);
 
       let isVictory = false;
       if (totalScore >= Game.WINNING_SCORE) {
@@ -231,7 +243,7 @@ class Game {
         this._updatePhase(TURN_PHASES.ROLL);
       }
 
-      return new EndTurnResult(totalScore, isVictory);
+      return new EndTurnResult({turnScore, totalScore, isVictory, didSaveScore});
     }, onError);
   };
 
@@ -250,3 +262,4 @@ class Game {
 };
 
 export default Game;
+export {EndTurnResult, TURN_PHASES};

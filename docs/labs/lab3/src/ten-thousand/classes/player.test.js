@@ -45,9 +45,25 @@ describe('Player', function() {
       const player = new Player(5);
       player._dice = [1, 2, 3, 4, 5, 6];
 
-      const turnScore = player.selectDice([0, 1, 2, 3, 4, 5]);
-      expect(turnScore).toBe(3000);
-      expect(player._turnScore).toBe(turnScore);
+      const selectDiceResult = player.selectDice([0, 1, 2, 3, 4, 5]);
+      expect(selectDiceResult).toMatchObject({
+        diceScore: 3000,
+        turnScore: 3000,
+      });
+      expect(player._turnScore).toBe(selectDiceResult.turnScore);
+    });
+
+    it('should handle different turn and dice scores', async () => {
+      const player = new Player(5);
+      player._turnScore = 1000;
+      player._dice = [1, 2, 3, 4, 5, 6];
+
+      const selectDiceResult = player.selectDice([0, 1, 2, 3, 4, 5]);
+      expect(selectDiceResult).toMatchObject({
+        diceScore: 3000,
+        turnScore: 4000,
+      });
+      expect(player._turnScore).toBe(selectDiceResult.turnScore);
     });
   });
 
@@ -57,9 +73,22 @@ describe('Player', function() {
       player._turnScore = 1000;
       player._totalScore = 5000;
 
-      const totalScore = player.endTurn();
+      const totalScore = player.endTurn(true);
 
       expect(totalScore).toBe(6000);
+      expect(player._totalScore).toBe(totalScore);
+      expect(player._turnScore).toBe(0);
+      expect(player._dice).toEqual([]);
+    });
+
+    it('should end the turn without saving score', async () => {
+      const player = new Player(6);
+      player._turnScore = 1000;
+      player._totalScore = 5000;
+
+      const totalScore = player.endTurn(false);
+
+      expect(totalScore).toBe(5000);
       expect(player._totalScore).toBe(totalScore);
       expect(player._turnScore).toBe(0);
       expect(player._dice).toEqual([]);
@@ -72,10 +101,10 @@ describe('Player', function() {
       const mockCallback = jest.fn();
       player.onUpdateTotalScore = mockCallback;
 
-      player._totalScore = 1000;
+      player.totalScore = 1000;
       expect(mockCallback).toHaveBeenCalledWith(1000);
 
-      player._totalScore = 2000;
+      player.totalScore = 2000;
       expect(mockCallback).toHaveBeenCalledWith(2000);
     });
   });
@@ -86,10 +115,10 @@ describe('Player', function() {
       const mockCallback = jest.fn();
       player.onUpdateTurnScore = mockCallback;
 
-      player._turnScore = 1000;
+      player.turnScore = 1000;
       expect(mockCallback).toHaveBeenCalledWith(1000);
 
-      player._turnScore = 2000;
+      player.turnScore = 2000;
       expect(mockCallback).toHaveBeenCalledWith(2000);
     });
   });
