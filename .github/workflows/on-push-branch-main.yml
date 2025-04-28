@@ -1,0 +1,12 @@
+# When an update is made to the `main` branch webpack is used to build and update the "live" versions
+# of the sites for later labs
+name: on-push-branch-main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  webpack_build:
+    uses: ./.github/workflows/webpack-build.yml

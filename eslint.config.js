@@ -4,7 +4,7 @@ import stylisticJs from '@stylistic/eslint-plugin-js';
 
 export default [
   {
-    ignores: ['**/node_modules/'],
+    ignores: ['**/node_modules/', '**/live/'],
   },
   js.configs.recommended,
   {

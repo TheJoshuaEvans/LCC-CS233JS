@@ -1,7 +1,7 @@
-# Lab 3: ToDo List and Web Bookmarker
+# Lab 4: ToDo List and Web Bookmarker
 Instructions are available [[here]](https://lcc-cit.github.io/CS233JS-CourseMaterials/Labs/Lab04/Lab04_Instructions_ToDo_Bookmarker.html)
 
-Live site: [[Link]](https://thejoshuaevans.com/LCC-CS233JS/labs/lab4)
+Live site: [[Link]](https://thejoshuaevans.com/LCC-CS233JS/labs/lab4/live/todo-list)
 
 ## Original In-Line Instructions
 ```
