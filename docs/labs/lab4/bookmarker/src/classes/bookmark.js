@@ -31,7 +31,7 @@ class Bookmark {
    * Generate and returns an HTML representation of the bookmark
    * @return {string}
    */
-  generateHtml() {
+  generateHtml = () => {
     const html = /*html*/`
       <a href="${this.link}" target="_blank" class="bookmark">
         <div class="img" style="background-image:url('${this.image}')">&nbsp;</div>
@@ -45,7 +45,7 @@ class Bookmark {
     `;
 
     return html;
-  }
+  };
 
   /**
    * @param {Bookmark} props
