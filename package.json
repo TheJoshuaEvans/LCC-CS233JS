@@ -8,8 +8,10 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint .",
     "webpack": "webpack",
-    "webpack:build:todolist": "npm run webpack -- --config webpack/webpack.todolist.js",
-    "webpack:watch:todolist": "npm run webpack -- serve --config webpack/webpack.todolist.js --open"
+    "webpack:bookmarker:build": "npm run webpack -- --config webpack/bookmarker.webpack.js",
+    "webpack:bookmarker:watch": "npm run webpack -- serve --config webpack/bookmarker.webpack.js --open",
+    "webpack:todolist:build": "npm run webpack -- --config webpack/todolist.webpack.js",
+    "webpack:todolist:watch": "npm run webpack -- serve --config webpack/todolist.webpack.js --open"
   },
   "repository": {
     "type": "git",

@@ -1,24 +1,21 @@
-import path from 'path';
-import url from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import pathRelativeToLabs from './utils/path-relative-to-labs.js';
 
 export default {
   mode: 'development',
   entry: {
-    index: path.resolve(__dirname, '../docs/labs/lab4/todo-list/index.js'),
+    index: pathRelativeToLabs('lab4/bookmarker/index.js'),
   },
   output: {
-    path: path.resolve(__dirname, '../docs/labs/lab4/todo-list/live'),
+    path: pathRelativeToLabs('lab4/bookmarker/live'),
     filename: '[name].js',
     clean: true,
   },
   target: 'web',
   devServer: {
-    static: path.resolve(__dirname, '../docs/labs/lab4/todo-list/live'),
+    static: pathRelativeToLabs('lab4/bookmarker/live'),
   },
   devtool: 'source-map',
   module: {
@@ -37,7 +34,7 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../docs/labs/lab4/todo-list/index.html'),
+      template: pathRelativeToLabs('lab4/bookmarker/index.html'),
       chunks: ['index'],
       inject: 'body',
       filename: 'index.html',
@@ -45,8 +42,12 @@ export default {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, '../docs/labs/lab4/todo-list/css'),
-          to: path.resolve(__dirname, '../docs/labs/lab4/todo-list/live/css'),
+          from: pathRelativeToLabs('lab4/bookmarker/css'),
+          to: pathRelativeToLabs('lab4/bookmarker/live/css'),
+        },
+        {
+          from: pathRelativeToLabs('lab4/bookmarker/images'),
+          to: pathRelativeToLabs('lab4/bookmarker/live/images'),
         },
       ],
     }),
