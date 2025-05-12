@@ -46,6 +46,9 @@ LCC-CIS233JS/
 - [Lab 4 - Bookmarker](./docs/labs/lab4/bookmarker)
 - [Lab 4 - Todo List](./docs/labs/lab4/bookmarker)
 
+## Lab 5
+- [Lab 5 - Meme Generator](./docs/labs/lab5/)
+
 # Development
 All actions and scripts should be run from this root directory, NOT the lab directories. To handle initial setup, run the following commands
 ```sh
