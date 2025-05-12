@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meme Creator</title>
+  <script type="module" src="./index.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Meme Creator</a>
+    </div>
+  </nav>
+
+  <div class="body">
+    <img id="defaultImage" src="./images/img_the_scream.jpg" style="display:none" alt="The Scream" width="220"
+      height="277">
+    <div class="canvas-area">
+      <canvas id="imgCanvas" class="img-canvas">
+        Canvas Not supported in your browser... Sorry!
+      </canvas>
+    </div>
+
+    <div class="input-area">
+
+      <div class="form-group">
+        <label for="image">Source Image:</label>
+        <input type="file" id="image" class="form-control" accept=".png,.jpg,.jpeg">
+      </div>
+
+      <div class="form-group">
+        <label for="topText">Top Text:</label>
+        <input type="text" id="topText" class="form-control" value="Top Text">
+      </div>
+
+      <div class="form-group">
+        <label for="bottomText">Bottom Text:</label>
+        <input type="text" id="bottomText" class="form-control" value="Bottom Text">
+      </div>
+
+      <div class="form-group">
+        <label for="fontSize">Font Size:</label>
+        <input type="number" id="fontSize" class="form-control">
+      </div>
+
+      <a class="btn btn-primary download-button" id="downloadMeme" download="meme.png">Download</a>
+
+    </div>
+
+  </div>
+
+  <div class="has-error" style="display: none;"></div>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="./css/styles.css"> 
+<script defer src="index.js"></script></body>
+
+</html>

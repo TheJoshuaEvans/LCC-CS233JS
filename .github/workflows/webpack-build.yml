@@ -32,6 +32,9 @@ jobs:
       
       - name: Build Bookmarker Website
         run: npm run webpack:bookmarker:build
+
+      - name: Build Meme Maker Website
+        run: npm run webpack:meme:build
       
       - name: Commit the build
         uses: EndBug/add-and-commit@v9

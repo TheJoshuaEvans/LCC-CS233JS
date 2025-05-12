@@ -11,7 +11,9 @@
     "webpack:bookmarker:build": "npm run webpack -- --config webpack/bookmarker.webpack.js",
     "webpack:bookmarker:watch": "npm run webpack -- serve --config webpack/bookmarker.webpack.js --open",
     "webpack:todolist:build": "npm run webpack -- --config webpack/todolist.webpack.js",
-    "webpack:todolist:watch": "npm run webpack -- serve --config webpack/todolist.webpack.js --open"
+    "webpack:todolist:watch": "npm run webpack -- serve --config webpack/todolist.webpack.js --open",
+    "webpack:meme:build": "npm run webpack -- --config webpack/meme.webpack.js",
+    "webpack:meme:watch": "npm run webpack -- serve --config webpack/meme.webpack.js --open"
   },
   "repository": {
     "type": "git",
