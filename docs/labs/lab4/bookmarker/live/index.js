@@ -13,9 +13,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
@@ -23,56 +23,52 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 /**
  * A single bookmark managed by the bookmarker
  */
-var Bookmark = /*#__PURE__*/function () {
+var Bookmark = /*#__PURE__*/_createClass(
+/**
+ * @param {Bookmark} props
+ */
+function Bookmark(props) {
+  var _this = this;
+  _classCallCheck(this, Bookmark);
   /**
-   * @param {Bookmark} props
+   * Human-friendly description of the bookmark target
+   * @type {string}
    */
-  function Bookmark(props) {
-    _classCallCheck(this, Bookmark);
-    /**
-     * Human-friendly description of the bookmark target
-     * @type {string}
-     */
-    _defineProperty(this, "description", '');
-    /**
-     * Image URL to associate with the bookmark
-     * @type {string}
-     */
-    _defineProperty(this, "image", '');
-    /**
-     * URL that the bookmark points to
-     * @type {string}
-     */
-    _defineProperty(this, "link", '');
-    /**
-     * Title of the bookmark
-     * @type {string}
-     */
-    _defineProperty(this, "title", '');
-    this.description = props.description;
-    this.link = props.link;
-    this.title = props.title;
+  _defineProperty(this, "description", '');
+  /**
+   * Image URL to associate with the bookmark
+   * @type {string}
+   */
+  _defineProperty(this, "image", '');
+  /**
+   * URL that the bookmark points to
+   * @type {string}
+   */
+  _defineProperty(this, "link", '');
+  /**
+   * Title of the bookmark
+   * @type {string}
+   */
+  _defineProperty(this, "title", '');
+  /**
+   * Generate and returns an HTML representation of the bookmark
+   * @return {string}
+   */
+  _defineProperty(this, "generateHtml", function () {
+    var html = /*html*/"\n      <a href=\"".concat(_this.link, "\" target=\"_blank\" class=\"bookmark\">\n        <div class=\"img\" style=\"background-image:url('").concat(_this.image, "')\">&nbsp;</div>\n        <div class=\"title\">\n          ").concat(_this.title, "\n          <br>\n          ").concat(_this.description, "\n        </div>\n        <div><i name=\"deleteBookmark\" class=\"bi-trash delete-icon\"></i></div>\n      </a>\n    ");
+    return html;
+  });
+  this.description = props.description;
+  this.link = props.link;
+  this.title = props.title;
 
-    // Do some special handling for the image property. If one isn't provided, set a default
-    // using https://robohash.org/ :D
-    this.image = props.image;
-    if (!this.image) {
-      this.image = "https://robohash.org/".concat(encodeURIComponent(this.title), ".png?size90x60&set=set3");
-    }
+  // Do some special handling for the image property. If one isn't provided, set a default
+  // using https://robohash.org/ :D
+  this.image = props.image;
+  if (!this.image) {
+    this.image = "https://robohash.org/".concat(encodeURIComponent(this.title), ".png?size90x60&set=set3");
   }
-  return _createClass(Bookmark, [{
-    key: "generateHtml",
-    value:
-    /**
-     * Generate and returns an HTML representation of the bookmark
-     * @return {string}
-     */
-    function generateHtml() {
-      var html = /*html*/"\n      <a href=\"".concat(this.link, "\" target=\"_blank\" class=\"bookmark\">\n        <div class=\"img\" style=\"background-image:url('").concat(this.image, "')\">&nbsp;</div>\n        <div class=\"title\">\n          ").concat(this.title, "\n          <br>\n          ").concat(this.description, "\n        </div>\n        <div><i name=\"deleteBookmark\" class=\"bi-trash delete-icon\"></i></div>\n      </a>\n    ");
-      return html;
-    }
-  }]);
-}();
+});
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bookmark);
 
 /***/ }),
