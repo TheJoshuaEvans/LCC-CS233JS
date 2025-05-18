@@ -213,6 +213,10 @@ var Bookmarker = /*#__PURE__*/_createClass(function Bookmarker() {
             linkPreviewUrl = "https://api.linkpreview.net/?q=".concat(url);
             _context.next = 4;
             return fetch(linkPreviewUrl, {
+              //! THIS IS EXTREMELY BAD PRACTICE AND CAUSES ME PHYSICAL PAIN
+              // But it's actually fine in this case because the API is free and I am just using this for
+              // a class project. I can generate a new, different key later if I need to use this API for a
+              // real project
               headers: {
                 'X-Linkpreview-Api-Key': '1c49bff26b57c0a59149dc0c7a0d7bb2'
               }
