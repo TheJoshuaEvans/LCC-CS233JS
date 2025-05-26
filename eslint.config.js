@@ -15,6 +15,7 @@ export default [
         ...globals.browser,
         ...globals.node,
         ...globals.jest,
+        L: true, // Leaflet global
       },
     },
     plugins: {

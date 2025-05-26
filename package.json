@@ -8,6 +8,7 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "server:json": "json-server --watch data/db.json",
     "webpack": "webpack",
     "webpack:bookmarker:build": "npm run webpack -- --config webpack/bookmarker.webpack.js",
     "webpack:bookmarker:watch": "npm run webpack -- serve --config webpack/bookmarker.webpack.js --open",
@@ -18,7 +19,9 @@
     "webpack:bookmarker2:build": "npm run webpack -- --config webpack/bookmarker2.webpack.js",
     "webpack:bookmarker2:watch": "npm run webpack -- serve --config webpack/bookmarker2.webpack.js --open",
     "webpack:weather:build": "npm run webpack -- --config webpack/weather.webpack.js",
-    "webpack:weather:watch": "npm run webpack -- serve --config webpack/weather.webpack.js --open"
+    "webpack:weather:watch": "npm run webpack -- serve --config webpack/weather.webpack.js --open",
+    "webpack:event:build": "npm run webpack -- --config webpack/event.webpack.js",
+    "webpack:event:watch": "npm run webpack -- serve --config webpack/event.webpack.js --open"
   },
   "repository": {
     "type": "git",
@@ -31,20 +34,41 @@
   },
   "homepage": "https://github.com/TheJoshuaEvans/LCC-CS233JS#readme",
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^4.2.0",
-    "@types/jest": "^29.5.14",
-    "eslint": "^9.23.0",
-    "jest": "^29.7.0",
-    "babel-loader": "^9.2.1",
     "@babel/cli": "^7.26.4",
     "@babel/core": "^7.26.8",
     "@babel/preset-env": "^7.26.8",
-    "html-webpack-plugin": "^5.6.3",
+    "@stylistic/eslint-plugin-js": "^4.2.0",
+    "@types/jest": "^29.5.14",
+    "babel-loader": "^9.2.1",
+    "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.23.0",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "json-server": "^1.0.0-beta.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "purgecss-webpack-plugin": "^7.0.2",
+    "sass": "^1.89.0",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.9",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.0"
+    "webpack-dev-server": "^5.2.0",
+    "webpack-merge": "^6.0.1"
   },
   "jest": {
     "transform": {}
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "bootstrap-less": "^3.3.8",
+    "chart.js": "^4.4.9",
+    "leaflet": "^1.9.4",
+    "less": "^4.3.0",
+    "regenerator-runtime": "^0.14.1",
+    "toastr": "^2.1.4"
   }
 }
